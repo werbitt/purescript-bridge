@@ -6,22 +6,22 @@ module Language.PureScript.Bridge.Printer where
 
 import           Control.Lens
 import           Control.Monad
-import           Data.Map.Strict (Map)
-import qualified Data.Map.Strict as Map
+import           Data.Map.Strict                            (Map)
+import qualified Data.Map.Strict                            as Map
+import           Data.Maybe                                 (isJust)
 import           Data.Monoid
-import           Data.Set (Set)
-import           Data.Maybe (isJust)
-import qualified Data.Set as Set
-import           Data.Text (Text)
-import qualified Data.Text as T
-import qualified Data.Text.IO as T
+import           Data.Set                                   (Set)
+import qualified Data.Set                                   as Set
+import           Data.Text                                  (Text)
+import qualified Data.Text                                  as T
+import qualified Data.Text.IO                               as T
 import           System.Directory
 import           System.FilePath
 
 
+import qualified Language.PureScript.Bridge.CodeGenSwitches as Switches
 import           Language.PureScript.Bridge.SumType
 import           Language.PureScript.Bridge.TypeInfo
-import qualified Language.PureScript.Bridge.CodeGenSwitches as Switches
 
 
 data Module (lang :: Language) = PSModule {
@@ -90,9 +90,7 @@ _lensImports settings
     , ImportLine "Data.Newtype" $ Set.fromList ["class Newtype"]
     ]
   | otherwise =
-    [ ImportLine "Data.Maybe" $ Set.fromList ["Maybe(..)"]
-    , ImportLine "Data.Newtype" $ Set.fromList ["class Newtype"]
-    ]
+    [ ImportLine "Data.Newtype" $ Set.fromList ["class Newtype"] ]
 
 
 importLineToText :: ImportLine -> Text
